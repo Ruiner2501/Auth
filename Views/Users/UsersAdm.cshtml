@@ -1,0 +1,95 @@
+﻿@model IEnumerable<Auth.Models.User>
+
+@{
+    ViewBag.Title = "Users";
+}
+ 
+<form asp-controller="Users">
+    <div class="btn-group" role="toolbar" aria-label="Basic mixed styles example">
+        <input class="btn btn-danger" type="submit" name="submit" value="Delete" formmethod="post" formaction="~/Users/Delete" />
+        <input class="btn btn-warning" type="submit" name="submit" value="Block" formmethod="post" formaction="~/Users/Lockout" />
+        <input class="btn btn-success" type="submit" name="submit" value="Unblock" formmethod="post" formaction="~/Users/Unlock" />
+    </div>
+
+    <table class="table table-bordered">
+        <thead class="thead-light" >
+            <tr>
+                <th>
+                    <input type="checkbox" id="check_all" onclick="SelectAll ('chek', this)"> Selcet all
+                </th>
+                <th>
+                    ID
+                </th>
+                <th>
+                    Name 
+                </th>
+                <th>
+                    Email 
+                </th>
+                <th>
+                    Date of Registration
+                </th>
+                <th>
+                    Last online
+                </th>
+                <th>
+                    Locked
+                </th>
+            </tr>
+
+        </thead>
+
+        @foreach (var i in Model)
+        {
+<tr>
+    <td>
+        <input type="checkbox" name="SelectedUsers" value="@i.Id" class="chek">
+    </td>
+
+    <td>
+        @Html.DisplayFor(item => i.Id)
+    </td>
+
+    <td>
+        @Html.DisplayFor(item => i.UserName)
+    </td>
+    <td>
+        @Html.DisplayFor(item => i.Email)
+    </td>
+    <td>
+        @Html.DisplayFor(item => i.RegistrationDate)
+    </td>
+    <td>
+        @Html.DisplayFor(item => i.LastAccessed)
+    </td>
+    <td>
+        @Html.DisplayFor(item => i.IsLocked)
+    </td>
+</tr>}
+    </table>
+
+    
+</form>
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
+
+<script>
+    function SelectAll(className, elem) {
+        var elements = document.getElementsByClassName(className);
+        var l = elements.length;
+        if (elem.checked)
+        {
+            for (var i = 0; i < l; i++) {
+                elements[i].checked = true;
+            }
+        }
+        else
+        {
+            for (var i = 0; i < l; i++) {
+                elements[i].checked = false;
+            }
+        }
+    }
+</script>
+
+
